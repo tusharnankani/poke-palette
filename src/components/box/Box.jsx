@@ -29,7 +29,6 @@ import arrow from "./../../assets/right-arrow.svg";
  */
 
 function Box({
-    key,
 	selectBool = false,
 	selectType = "",
 	text = "Default Box",
@@ -40,7 +39,6 @@ function Box({
 		<button className="box">
 			<div className="first">
 				{/* Checkbox/Radio */}
-                {console.log(selectBool)}
 				{selectBool &&
 					(<span className={`select ${selectType}`}></span>)}
 
