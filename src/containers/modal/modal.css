@@ -1,0 +1,8 @@
+.modal {
+    position: absolute;
+    width: 80vw;
+    height: 80vh;
+    background-color: var(--modal-bg);
+    padding: 4rem 2rem;
+    border-radius: 1rem;
+}

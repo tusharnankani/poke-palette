@@ -8,6 +8,14 @@
 
   --color-warning-bg: rgba(255, 205, 68, 0.651);
   --color-terminate-bg: rgba(255, 68, 68, 0.651);
+
+  --modal-bg: #263339;
+  --button-inactive: #38474E;
+  --button-active: #3671FF;
+  --option-radio: #42E0BF;
+  --option-hover: #0C9982;
+  --button-cnt-bg: #535C62;
+  --button-text: #FEFEFF;
 }
 
 body {

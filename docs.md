@@ -59,3 +59,8 @@ Moves
   - Reset (Secondary)
 
 4. Figure out GraphQL
+
+- https://www.freecodecamp.org/news/5-ways-to-fetch-data-react-graphql/amp
+
+Use Apollo Client
+

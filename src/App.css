@@ -3,14 +3,17 @@
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
+  font-family: var(--font-family);
 }
 
 body {
   background: var(--gradient-bg);
-  font-family: var(--font-family);
 }
 
 .home {
   height: 100vh;
   width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

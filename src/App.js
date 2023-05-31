@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
+import { Modal } from './containers'
 
 const KEY_CODE = {
   CTRL: "17",
@@ -12,16 +13,17 @@ function App() {
   let globalString = "";
   const homeRef = useRef(null);
   const [openModal, setOpenModal] = useState(false);
-
+  
   const resetGlobalString = () => {
     globalString = "";
+    focusHomeComponent();
   };
 
   /**
    * handleKeyDown function
    * To detect keydown events and identify `CTRL K` or `Esc`
-   */
-  const handleKeyDown = (event) => {
+  */
+ const handleKeyDown = (event) => {
     let keyCode = event.keyCode || event.which;
     globalString += keyCode;
 
@@ -31,13 +33,21 @@ function App() {
       event.preventDefault();
 
       // change state here;
-      console.log("YAYY");
       setOpenModal((prevState) => !prevState);
 
+      // reset string to avoid overflow
       resetGlobalString();
+
     } else {
       let lastTwoKeys = globalString.slice(-2);
-      if (lastTwoKeys !== KEY_CODE.CTRL && lastTwoKeys !== KEY_CODE.ESC) {
+
+      // if Esc; simply close the modal 
+      if (lastTwoKeys === KEY_CODE.ESC) {
+        event.preventDefault();
+        setOpenModal(false);
+        resetGlobalString();
+      }
+      else if (lastTwoKeys !== KEY_CODE.CTRL && lastTwoKeys !== KEY_CODE.ESC) {
         resetGlobalString();
       }
     }
@@ -59,12 +69,14 @@ function App() {
   return (
     <div
       className="home"
-      onKeyDown={handleKeyDown}
       ref={homeRef}
+      onKeyDown={handleKeyDown}
       onBlur={focusHomeComponent}
       tabIndex="0"
     >
-      Press CTRL K to get started.
+      Press CTRL K to get started.<br/>
+      Modal Open: {openModal ? "True" : "False"}
+      <Modal/>
     </div>
   );
 }

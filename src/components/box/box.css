@@ -1,0 +1,38 @@
+.box {
+    background-color: var(--button-active);
+    min-width: fit-content;
+    width: 20rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    font-size: 0.9rem;
+    border-radius: 0.5rem;
+    margin: 0.5rem;
+}
+
+.first, .second {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.radio {
+    background-color: var(--option-radio);
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+.text {
+    color: var(--button-text);
+}
+
+.cnt {
+    background-color: var(--button-cnt-bg);
+    color: var(--button-text);
+    font-size: 0.75rem;
+    padding: 0.2rem 0.8rem;
+    border-radius: 1rem;
+}
