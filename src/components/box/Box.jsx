@@ -29,6 +29,7 @@ import arrow from "./../../assets/right-arrow.svg";
  */
 
 function Box({
+    key,
 	selectBool = false,
 	selectType = "",
 	text = "Default Box",
