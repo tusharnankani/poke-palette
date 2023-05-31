@@ -55,12 +55,12 @@ export const struct = [
                         selected: false
                     },
                     {
-                        title: 'Green',
+                        title: 'Mountain',
                         selectType: "check",
                         selected: false
                     },
                     {
-                        title: 'Blue',
+                        title: 'Water',
                         selectType: "check",
                         selected: false
                     }

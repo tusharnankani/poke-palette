@@ -14,8 +14,10 @@ function Modal() {
                 {
                     menuItems.map((obj, index) => (
                         <Box key={index} 
+                            depthLevel={depthLevel}
                             text={obj.title}
                             cnt={obj.cnt}
+                            subMenu={obj.subMenu}
                             selectBool={(obj.select?.length > 0)}
                             selectType={obj.selectType || ""}
                             arrowBool={obj.subMenu?.length > 0}

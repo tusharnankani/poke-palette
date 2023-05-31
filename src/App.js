@@ -14,7 +14,7 @@ const KEY_CODE = {
 function App() {
 
 	const { data: { pokemons1 = [] } = {}, loading, error} = useQuery(POKEMON_QUERY);
-	const { data: { pokemons2 = [] } = {} } = useQuery(MOVES_QUERY);
+	// const { data: { pokemons2 = [] } = {} } = useQuery(MOVES_QUERY);
 
 	let globalString = "";
 	const homeRef = useRef(null);
@@ -83,9 +83,10 @@ function App() {
 			onBlur={focusHomeComponent}
 			tabIndex="0"
 		>
-			Press CTRL K to get started. Modal Open:{" "}
-			{openModal ? "True" : "False"}
+			Press CTRL K to get started.
+			{/* {openModal ? <Modal /> : ""} */}
 			<Modal />
+			
 		</div>
 	);
 }
