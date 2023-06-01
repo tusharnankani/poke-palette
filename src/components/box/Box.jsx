@@ -30,60 +30,69 @@ import arrow from "./../../assets/right-arrow.svg";
 
 function Box({
 	depthLevel,
-	selectBool = false,
-	selectType = "",
-	subMenu = [],
-	text = "Default Box",
-	cnt = 0,
-	arrowBool = true,
+	obj = {},
+	globalState,
+	setGlobalState,
 }) {
-
+	
 	depthLevel += 1;
 	const dropdownClass = depthLevel > 1 ? "dropdown-submenu" : "";
-	
-	let [dropdown, setDropdown] = useState(false);
+
+	let text = obj.title, 
+		value = obj.value,
+		subMenu = obj.subMenu || [],
+		cnt = obj.cnt;
+
+	let isFilter = (subMenu.length > 0),
+	isOption = (subMenu.length === 0),
+	selected = obj.selected || false,
+	selectType = obj.selectType || "";
+
 	let [isActive, setIsActive] = useState(false);
 
-	const handleClick = () => {
-		setDropdown((prevState) => !prevState);
+	const handleClick = (e) => {
+		console.log(e.currentTarget);
+		console.log(e.currentTarget.getAttribute("value"));
 		setIsActive((prevState) => !prevState);
 	}
 
 	return (
 		<React.Fragment>
-			<div className={`box box-${isActive ? "active" : ""}`}
+			<div className={`box ${isFilter ? "filter" : "option"} box-${isActive ? "active" : ""}`}
 				onClick={handleClick}
+				value={value}
 			>
 				<div className="first">
-					{/* Checkbox/Radio */}
-					{selectBool &&
-						(<span className={`select ${selectType}`}></span>)}
 
-					{/* Checkbox/Radio */}
+					{/* Checkbox || Radio */}
+					{isOption &&
+						(<span className={`select ${selectType} ${isActive ? "selected" : ""}`}></span>)}
+
+					{/* Text */}
 					<span className="text">{text}</span>
+				
 				</div>
 
 				<div className="second">
+
 					{/* Filter Count */}
 					{cnt > 0 && (<span className="cnt">{cnt}</span>)}
 
 					{/* Right Arrow */}
-					{arrowBool && (<img src={arrow} alt="right-arrow" />)}
+					{isFilter && (<img src={arrow} alt="right-arrow" />)}
+			
 				</div>
 			</div>
 			
-			{subMenu.length > 0 && (
-				<div className={`submenu ${dropdownClass} ${dropdown ? "" : "hide"}`}>
+			{subMenu.length > 0 && isActive && (
+				<div className={`submenu ${dropdownClass}`}>
 					{
 						subMenu.map((obj, index) => (
-							<Box key={index} 
+							<Box key={index}
 								depthLevel={depthLevel}
-								text={obj.title}
-								cnt={obj.cnt}
-								subMenu={obj.subMenu}
-								selectBool={(obj.select?.length > 0)}
-								selectType={obj.selectType || ""}
-								arrowBool={obj.subMenu?.length > 0}
+								obj={obj}
+								globalState={globalState}
+								setGlobalState={setGlobalState}
 							/>
 						))
 					}

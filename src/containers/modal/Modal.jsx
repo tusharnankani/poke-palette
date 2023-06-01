@@ -1,29 +1,47 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './modal.css'
-import {Box} from '../../components';
+import {Box, CTA} from '../../components';
 import {struct} from './../../struct';
+import { useQuery } from "@apollo/client";
+import { POKEMON_QUERY, MOVES_QUERY } from "./../../graphql/get-pokemon";
+
 
 function Modal() {
     // Define structure of the menu
-    const menuItems = struct;
+    let menuItems = struct;
+    let baseQuery = {
+        pokemon: {
+            generation: "",
+            color: "",
+            habitat: [],
+        },
+        moves: {
+            move_class: "",
+            power_points: "",
+        }
+    }
+
+	let [globalState, setGlobalState] = useState(menuItems);
+	let [query, setQuery] = useState(baseQuery);
 
     const depthLevel = 0;
-    return ( 
+    return (
         <div className='modal'>
             <div className="panel">
                 {
                     menuItems.map((obj, index) => (
-                        <Box key={index} 
+                        <Box key={index}
                             depthLevel={depthLevel}
-                            text={obj.title}
-                            cnt={obj.cnt}
-                            subMenu={obj.subMenu}
-                            selectBool={(obj.select?.length > 0)}
-                            selectType={obj.selectType || ""}
-                            arrowBool={obj.subMenu?.length > 0}
+                            obj={obj}
+                            globalState={globalState}
+                            setGlobalState={setGlobalState}
                         />
                     ))
                 }
+            </div>
+            <div className="cta">
+                <CTA text="Reset" key="reset" type="secondary" />
+                <CTA text="Submit" key="submit" type="primary" />
             </div>
         </div>
      );

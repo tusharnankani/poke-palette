@@ -13,7 +13,7 @@ const KEY_CODE = {
 
 function App() {
 
-	const { data: { pokemons1 = [] } = {}, loading, error} = useQuery(POKEMON_QUERY);
+	// const { data: { pokemons1 = [] } = {}, loading, error} = useQuery(POKEMON_QUERY);
 	// const { data: { pokemons2 = [] } = {} } = useQuery(MOVES_QUERY);
 
 	let globalString = "";

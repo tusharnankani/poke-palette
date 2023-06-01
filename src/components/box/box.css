@@ -39,12 +39,14 @@
 
     width: 1.2rem;
     height: 1.2rem;
-
-    /* outline: 3px solid rgba(0, 0, 0, 0.5);
-    outline-offset: -7px; */
 }
 
-.select .radio {
+.selected {
+    outline: 3px solid rgba(0, 0, 0, 0.5);
+    outline-offset: -7px;
+}
+
+.radio {
     border-radius: 50%;
 }
 
@@ -72,7 +74,8 @@
     left: 24rem;
     top: 0rem;
     
-    /* margin: 4rem 0; */
+    /* bug here */
+    /* padding: 2.5rem 0 0 21rem; */
 }
 
 .hide {
