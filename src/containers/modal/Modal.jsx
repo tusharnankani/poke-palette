@@ -4,6 +4,7 @@ import {Box, CTA} from '../../components';
 import {struct} from './../../struct';
 import { useQuery } from "@apollo/client";
 import { POKEMON_QUERY, MOVES_QUERY } from "./../../graphql/get-pokemon";
+import Result from '../result/Result';
 
 
 function Modal() {
@@ -40,8 +41,15 @@ function Modal() {
                 }
             </div>
             <div className="cta">
-                <CTA text="Reset" key="reset" type="secondary" />
-                <CTA text="Submit" key="submit" type="primary" />
+                <CTA text="Reset" 
+                    key="reset" 
+                    type="secondary" 
+                />
+                <CTA text="Submit" 
+                    key="submit" 
+                    type="primary"
+                    href="/submit"
+                />
             </div>
         </div>
      );

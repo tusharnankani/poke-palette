@@ -20,7 +20,7 @@ query PokemonQuery {
   }
 `
 
-export const MOVES_QUERY = `
+export const MOVES_QUERY = gql`
 query MovesQuery {
     pokemon_v2_move(where: { pp: { _gt: 20 }, pokemon_v2_movedamageclass: { name: { _eq: "physical" } } }) {
       name

@@ -1,9 +1,10 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
-import { Modal } from "./containers";
+import { Modal, Result } from "./containers";
 import { useQuery } from "@apollo/client";
 import { POKEMON_QUERY, MOVES_QUERY } from "./graphql/get-pokemon";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const KEY_CODE = {
 	CTRL: "17",
@@ -13,8 +14,10 @@ const KEY_CODE = {
 
 function App() {
 
-	// const { data: { pokemons1 = [] } = {}, loading, error} = useQuery(POKEMON_QUERY);
+	// const { data: { pokemons = [] } = {}, loading, error} = useQuery(POKEMON_QUERY);
 	// const { data: { pokemons2 = [] } = {} } = useQuery(MOVES_QUERY);
+
+	// console.log(pokemons)
 
 	let globalString = "";
 	const homeRef = useRef(null);
@@ -70,6 +73,12 @@ function App() {
 		homeRef.current.focus();
 	};
 
+	const handleOutsideClick = (e) => {
+		e.preventDefault();
+		// change state here;
+		setOpenModal(false);
+	}
+
 	useEffect(() => {
 		// Function to focus when the component renders;
 		focusHomeComponent();
@@ -83,9 +92,13 @@ function App() {
 			onBlur={focusHomeComponent}
 			tabIndex="0"
 		>
-			Press CTRL K to get started.
-			{/* {openModal ? <Modal /> : ""} */}
-			<Modal />
+			<BrowserRouter>
+				<Routes>
+					<Route exact path="/" element={<Modal/>} />
+					{/* <Route exact path="/" element={openModal ? <Modal /> : "Press CTRL K to get started."} /> */}
+					<Route path="/submit" element={<Result/>} />
+				</Routes>
+			</BrowserRouter>
 			
 		</div>
 	);

@@ -3,10 +3,17 @@ import './cta.css'
 
 function CTA({
     text="default",
-    type="primary"
+    type="primary",
+    href,
 }) {
     return ( 
-        <button className={`btn btn-${type}`}>{text}</button> 
+        <a href={href}>
+            <button 
+                className={`btn btn-${type}`}
+            >
+                {text}
+            </button> 
+        </a>
     );
 }
 
