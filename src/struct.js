@@ -143,6 +143,6 @@ export const struct = [
                     }
                 ]
             }
-        ]   
+        ]    
     }
 ];

@@ -25,6 +25,24 @@ function Modal() {
 	let [globalState, setGlobalState] = useState(menuItems);
 	let [query, setQuery] = useState(baseQuery);
 
+    let handleSubmit = () => {
+        // access globalState to find these variables;
+        const generation = 'generation-i';
+        const pokemonColor = 'red';
+        const pokemonHabitatNames = ['forest', 'grassland'];
+
+        const queryParams = new URLSearchParams();
+        queryParams.set('generation', generation);
+        queryParams.set('pokemonColor', pokemonColor);
+        pokemonHabitatNames.forEach((habitatName) => {
+            queryParams.append('pokemonHabitatNames', habitatName);
+        });
+
+        const url = `/submit?${queryParams.toString()}`;
+
+        return url;
+    }
+    
     const depthLevel = 0;
     return (
         <div className='modal'>
@@ -48,7 +66,7 @@ function Modal() {
                 <CTA text="Submit" 
                     key="submit" 
                     type="primary"
-                    href="/submit"
+                    href={handleSubmit()}
                 />
             </div>
         </div>
