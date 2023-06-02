@@ -38,10 +38,11 @@ function Box({
 	depthLevel += 1;
 	const dropdownClass = depthLevel > 1 ? "dropdown-submenu" : "";
 
-	let text = obj.title, 
+	let text = obj.title,
 		value = obj.value,
 		subMenu = obj.subMenu || [],
 		cnt = obj.cnt;
+		
 
 	let isFilter = (subMenu.length > 0),
 	isOption = (subMenu.length === 0),
@@ -52,8 +53,91 @@ function Box({
 
 	const handleClick = (e) => {
 		console.log(e.currentTarget);
-		console.log(e.currentTarget.getAttribute("value"));
+		// console.log(e.currentTarget.getAttribute("value"));
 		setIsActive((prevState) => !prevState);
+		
+		let finalValue = (e.currentTarget.getAttribute("value"));
+
+		console.log("sending final value: ", finalValue)
+		console.log("sending depth level: ", depthLevel)
+		traverse(
+			globalState, 
+			1,
+			finalValue, 
+			depthLevel
+		);
+
+		setGlobalState(globalState, (console.log(globalState)));
+	}
+
+	/**
+	 * Function to update global state onClick;
+	 * currMenu
+	 * currDepth
+	 * finalValue
+	 * depthLevel
+	 */
+	const traverse = (
+						currMenu, 
+						currDepth, 
+						finalValue, 
+						depthLevel
+					) => {
+		
+						
+		// if lower level depth selected is false, don't dig deeper;
+		if(currDepth < depthLevel) {
+			if(currMenu.selected === false) {
+				return;
+			}
+		}
+
+		console.log(currDepth, depthLevel)
+		if(currDepth === depthLevel) {
+			console.log("inside equal")
+			console.log(currMenu)
+			// set selected true for finalValue;
+			let temp = currMenu.filter((obj) => (obj.value === finalValue))
+			if(temp.length > 0)
+				temp[0].selected = true;
+
+			// set false for remaining objects in the same depth;
+			currMenu.map((obj) => {
+				if(obj.value !== finalValue) {
+					obj.selected = false;
+				}
+			});
+
+			console.log("reached: ", depthLevel)
+
+			// once it has reached the depth level, don't dig deeper;
+			return;
+		}
+
+		// if there is submenu, traverse another level;
+		console.log("going for recursion")
+		currMenu.map((obj) => traverse(obj.subMenu, currDepth + 1, finalValue, depthLevel));
+	}
+
+	const findObjectforValue = (currMenu, currDepth, finalValue, depthLevel) => {
+
+		// find the object of selected current value and return it;
+		if(currDepth === depthLevel) {
+			let temp = currMenu.filter((obj) => (obj.value === finalValue))
+			
+			if(temp.length > 0)
+				return temp[0];
+		}
+
+		// if there is submenu, traverse another level;
+		// currMenu.map((obj) => findObjectforValue(obj.subMenu, currDepth + 1, finalValue, depthLevel));
+		
+		for (let obj of currMenu) {
+			return findObjectforValue(obj.subMenu, currDepth + 1, finalValue, depthLevel)
+		}
+
+
+		return null;
 	}
 
 	return (
