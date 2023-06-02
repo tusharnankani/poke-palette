@@ -1,24 +1,24 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 :root {
-  --font-family: "Inter", sans-serif;
+	--font-family: "Inter", sans-serif;
 
-  --gradient-text: linear-gradient(270.11deg, #4d72da 0.08%, #6399f9 94.04%);
-  --gradient-bg: linear-gradient(89.83deg, #f8fcff 1.11%, #f3faff 99.88%);
+	--gradient-text: linear-gradient(270.11deg, #4d72da 0.08%, #6399f9 94.04%);
+	--gradient-bg: linear-gradient(89.83deg, #f8fcff 1.11%, #f3faff 99.88%);
 
-  --color-warning-bg: rgba(255, 205, 68, 0.651);
-  --color-terminate-bg: rgba(255, 68, 68, 0.651);
+	--color-warning-bg: rgba(255, 205, 68, 0.651);
+	--color-terminate-bg: rgba(255, 68, 68, 0.651);
 
-  --modal-bg: #263339;
-  --button-inactive: #38474E;
-  --button-active: #3671FF;
-  --option-radio: #42E0BF;
-  --option-hover: #0C9982;
-  --button-cnt-bg: #535C62;
-  --button-text: #FEFEFF;
+	--modal-bg: #263339;
+	--button-inactive: #38474e;
+	--button-active: #3671ff;
+	--option-radio: #42e0bf;
+	--option-hover: #0c9982;
+	--button-cnt-bg: #535c62;
+	--button-text: #fefeff;
 }
 
 body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }

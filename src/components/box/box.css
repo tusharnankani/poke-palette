@@ -1,83 +1,85 @@
 .box {
-    background-color: var(--button-inactive);
-    
-    width: 20rem;
-    
-    padding: 1rem;
-    
-    font-size: 1rem;
-    border-radius: 0.5rem;
-    
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 3rem;
-    
-    cursor: pointer;
-    border: none;
+	background-color: var(--button-inactive);
+
+	width: 20rem;
+
+	padding: 1rem;
+
+	font-size: 1rem;
+	border-radius: 0.5rem;
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 3rem;
+
+	cursor: pointer;
+	border: none;
 }
 
 .box:hover,
 .box:focus {
-    outline: 1px solid var(--button-active);
-    outline-offset: -2px;
+	outline: 1px solid var(--button-active);
+	outline-offset: -2px;
 }
 
-.box:active, .box-active {
-    background-color: var(--button-active);
+.box:active,
+.box-active {
+	background-color: var(--button-active);
 }
 
-.first, .second {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.1rem;
+.first,
+.second {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1.1rem;
 }
 
 .select {
-    background-color: var(--option-radio);
+	background-color: var(--option-radio);
 
-    width: 1.2rem;
-    height: 1.2rem;
+	width: 1.2rem;
+	height: 1.2rem;
 }
 
 .selected {
-    outline: 3px solid rgba(0, 0, 0, 0.5);
-    outline-offset: -7px;
+	outline: 3px solid rgba(0, 0, 0, 0.5);
+	outline-offset: -7px;
 }
 
 .radio {
-    border-radius: 50%;
+	border-radius: 50%;
 }
 
 .text {
-    color: var(--button-text);
+	color: var(--button-text);
 }
 
 .cnt {
-    background-color: var(--button-cnt-bg);
-    color: var(--button-text);
+	background-color: var(--button-cnt-bg);
+	color: var(--button-text);
 
-    font-size: 0.75rem;
-    padding: 0.2rem 0.8rem;
-    border-radius: 1rem;
+	font-size: 0.75rem;
+	padding: 0.2rem 0.8rem;
+	border-radius: 1rem;
 }
 
 .submenu {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    flex-direction: column;
-    gap: 0.5rem;
-    
-    position: absolute;
-    left: 24rem;
-    top: 0rem;
-    
-    /* bug here */
-    /* padding: 2.5rem 0 0 21rem; */
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	flex-direction: column;
+	gap: 0.5rem;
+
+	position: absolute;
+	left: 24rem;
+	top: 0rem;
+
+	/* bug here */
+	/* padding: 2.5rem 0 0 21rem; */
 }
 
 .hide {
-    display: none;
+	display: none;
 }

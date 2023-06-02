@@ -1,10 +1,7 @@
-import React from 'react';
+import React from "react";
 
-function Panel({menuList}) {
-    
-    return (
-        <div>Panel</div>
-    );
+function Panel({ menuList }) {
+	return <div>Panel</div>;
 }
 
 export default Panel;

@@ -1,29 +1,29 @@
 .modal {
-    position: absolute;
-    width: 80vw;
-    height: 60vh;
-    background-color: var(--modal-bg);
-    padding: 2.5rem;
-    border-radius: 1rem;
+	position: absolute;
+	width: 80vw;
+	height: 60vh;
+	background-color: var(--modal-bg);
+	padding: 2.5rem;
+	border-radius: 1rem;
 
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    flex-direction: column;
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	flex-direction: column;
 }
 
 .panel {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    flex-direction: column;
-    gap: 0.5rem;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	flex-direction: column;
+	gap: 0.5rem;
 }
 
 .cta {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
-    gap: 0.5rem;
-    width: 100%;
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-end;
+	gap: 0.5rem;
+	width: 100%;
 }
