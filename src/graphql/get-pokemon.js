@@ -1,4 +1,3 @@
-import React from "react";
 import { useQuery, gql } from "@apollo/client";
 
 /**
@@ -13,7 +12,7 @@ import { useQuery, gql } from "@apollo/client";
   {
     "generation": "generation-i",
     "pokemonColor": "red",
-    "pokemonHabitatNames": ["grassland"],
+    "pokemonHabitatNames": ["forest", "grassland"],
   }
 
 */

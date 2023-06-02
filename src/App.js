@@ -2,15 +2,8 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
 import { Modal, Result } from "./containers";
-import { useQuery } from "@apollo/client";
-import { POKEMON_QUERY, MOVES_QUERY } from "./graphql/get-pokemon";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-const KEY_CODE = {
-	CTRL: "17",
-	CTRL_K: "1775",
-	ESC: "27"
-};
+import { KEY_CODE } from "./utils/keys";
 
 function App() {
 	let globalString = "";

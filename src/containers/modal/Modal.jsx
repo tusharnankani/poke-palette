@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import "./modal.css";
 import { Box, CTA } from "../../components";
-import { struct } from "./../../struct";
-import { useQuery } from "@apollo/client";
-import { POKEMON_QUERY, MOVES_QUERY } from "./../../graphql/get-pokemon";
-import Result from "../result/Result";
+import { struct } from "./../../utils/struct";
+import { useNavigate } from "react-router-dom";
 
 function Modal() {
 	// Define structure of the menu
@@ -22,24 +20,48 @@ function Modal() {
 	};
 
 	let [globalState, setGlobalState] = useState(menuItems);
+
 	let [query, setQuery] = useState(baseQuery);
 
-	let handleSubmit = () => {
-		// access globalState to find these variables;
-		const generation = "generation-i";
-		const pokemonColor = "red";
-		const pokemonHabitatNames = ["forest", "grassland"];
+	let navigate = useNavigate(); 
 
+	let findSelectedObject = (value) => {
+		return globalState.filter((obj) => obj.value === value)[0];
+	}
+
+	let handleSubmit = () => {
+		console.log("submit clicked")
 		const queryParams = new URLSearchParams();
-		queryParams.set("generation", generation);
-		queryParams.set("pokemonColor", pokemonColor);
-		pokemonHabitatNames.forEach((habitatName) => {
-			queryParams.append("pokemonHabitatNames", habitatName);
-		});
+		
+		if(findSelectedObject('pokemons').selected) {
+			const filter = "pokemons";
+			
+			// access globalState to find these variables;
+			const generation = "generation-i";
+			const pokemonColor = "red";
+			const pokemonHabitatNames = ["forest", "grassland"];
+			
+			queryParams.set("filter", filter);
+			queryParams.set("generation", generation);
+			queryParams.set("pokemonColor", pokemonColor);
+			pokemonHabitatNames.forEach((habitatName) => {
+				queryParams.append("pokemonHabitatNames", habitatName);
+			});
+		} else if (findSelectedObject('moves').selected) {
+			const filter = "moves";
+			
+			const powerPoints = 10;
+			const moveClass = "status";
+			
+			queryParams.set("filter", filter);
+			queryParams.set("powerPoints", powerPoints);
+			queryParams.set("moveClass", moveClass);
+		}
 
 		const url = `/submit?${queryParams.toString()}`;
-
-		return url;
+		console.log(url)
+		
+		navigate(url);
 	};
 
 	const depthLevel = 0;
@@ -62,7 +84,7 @@ function Modal() {
 					text="Submit"
 					key="submit"
 					type="primary"
-					href={handleSubmit()}
+					onClick={handleSubmit}
 				/>
 			</div>
 		</div>

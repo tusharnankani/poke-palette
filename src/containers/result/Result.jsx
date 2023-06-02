@@ -12,33 +12,52 @@ function Res({ text = "poke" }) {
 	return <div className="res">{text}</div>;
 }
 
-function Result() {
+function Result({globalState, setGlobalState}) {
+
 	// get URL and parameters;
 	const urlParams = new URLSearchParams(window.location.search);
-	const generation = urlParams.get("generation");
-	const pokemonColor = urlParams.get("pokemonColor");
-	const pokemonHabitatNames = urlParams.getAll("pokemonHabitatNames");
+	
+	let querySelected, variables = {};
+	
+	const filter = urlParams.get("filter");
 
-	// populate variables according to ./graphql queries
-	const variables = {
-		generation,
-		pokemonColor,
-		pokemonHabitatNames
-	};
+	if(filter === 'pokemons') {
+		querySelected = POKEMON_QUERY;
+		
+		const generation = urlParams.get("generation");
+		const pokemonColor = urlParams.get("pokemonColor");
+		const pokemonHabitatNames = urlParams.getAll("pokemonHabitatNames");
 
-	const {
-		data: { pokemons = [] } = {},
-		loading,
-		error
-	} = useQuery(POKEMON_QUERY, { variables });
-	// const { data: { pokemons = [] } = {}, loading, error} = useQuery(MOVES_QUERY);
-	console.log(pokemons);
+		variables = {
+			generation,
+			pokemonColor,
+			pokemonHabitatNames
+		};
+		
+	} else if (filter === 'moves') {
+		querySelected = MOVES_QUERY;
+		
+		const powerPoints = parseInt(urlParams.get("powerPoints"));
+		const moveClass = urlParams.get("moveClass");
 
+		variables = {
+			powerPoints,
+			moveClass
+		};
+	}
+		
+	console.log(variables);
+
+	const { data: { pokemons = [] } = {}, loading, error} = useQuery(querySelected, {variables});
+	
 	if (loading) return "Loading...";
 	if (error) return <pre>{error.message}</pre>;
-
+	
+	console.log(pokemons);
+	
 	return (
 		<div className="result">
+			<pre>Applied filter: {filter}</pre>
 			<h1>Found {pokemons.length} Pokemons</h1>
 			<div className="result-list">
 				{pokemons.map((pokemon, idx) => (
