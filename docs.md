@@ -7,6 +7,7 @@ Pre work:
 - https://pokeapi.co/docs/graphql
 - https://www.youtube.com/watch?v=vUlnxjuYyzw: A video on keyboard shortcuts
 - https://github.com/pacocoursey/cmdk: The famous `cmdk` repo
+- Inspiration from tldraw's menu (steve ruiz): https://twitter.com/steveruizok/status/1557307223465943040
 
 #### Potential Plan of Action
 
