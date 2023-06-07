@@ -8,7 +8,7 @@ import { KEY_CODE } from "./utils/keys";
 function App() {
 	let globalString = "";
 	const homeRef = useRef(null);
-	const [openModal, setOpenModal] = useState(false);
+	const [openModal, setOpenModal] = useState(true);
 
 	const resetGlobalString = () => {
 		globalString = "";
@@ -79,8 +79,8 @@ function App() {
 		>
 			<BrowserRouter>
 				<Routes>
-					<Route exact path="/" element={<Modal />} />
-					{/* <Route exact path="/" element={openModal ? <Modal /> : "Press CTRL K to get started."} /> */}
+					{/* <Route exact path="/" element={<Modal />} /> */}
+					<Route exact path="/" element={openModal ? <Modal /> : "Press CTRL K to get started."} />
 					<Route path="/submit" element={<Result />} />
 				</Routes>
 			</BrowserRouter>

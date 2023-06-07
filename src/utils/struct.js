@@ -15,7 +15,7 @@ export const struct = [
 						title: "Generation 1",
 						value: "generation-i",
 						selectType: "radio",
-						selected: false
+						selected: false,
 					},
 					{
 						title: "Generation 2",

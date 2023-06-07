@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./modal.css";
 import { Box, CTA } from "../../components";
 import { struct } from "./../../utils/struct";
@@ -29,8 +29,71 @@ function Modal() {
 		return globalState.filter((obj) => obj.value === value)[0];
 	}
 
+	const updateSelected = (struct, value) => {
+		
+		for (let i = 0; i < struct.length; i++) {
+			const item = struct[i];
+			if (item.value === value) {
+				// if it is already selected, set as false;
+				if(item.selected) {
+					item.selected = false;
+				}
+				else {
+					item.selected = true; // Set the clicked item as selected
+					
+					// Set all other items on the same level to false
+					for (let j = 0; j < struct.length; j++) {
+						if (j !== i) {
+							struct[j].selected = false;
+						}
+					}
+				}
+			}
+			
+			if (item.subMenu) {
+				updateSelected(item.subMenu, value); // Recursively traverse subMenu
+			}
+	  	}
+	}
+
+	function findSelectedValue(struct, value) {
+		for (let i = 0; i < struct.length; i++) {
+			const item = struct[i];
+			if (item.value === value) {
+				return item.selected;
+			}
+	  
+			if (item.subMenu) {
+				const selectedValue = findSelectedValue(item.subMenu, value);
+				if (selectedValue !== undefined) {
+					return selectedValue;
+				}
+			}
+		}
+	  
+		return undefined; 
+	}
+
+	function findSelectedObj(struct, value) {
+		for (let i = 0; i < struct.length; i++) {
+			const item = struct[i];
+			if (item.value === value) {
+				return item;
+			}
+	  
+			if (item.subMenu) {
+				const selectedValue = findSelectedObj(item.subMenu, value);
+				if (selectedValue !== undefined) {
+					return selectedValue;
+				}
+			}
+		}
+	  
+		return undefined; 
+	}
+
+
 	let handleSubmit = () => {
-		console.log("submit clicked")
 		const queryParams = new URLSearchParams();
 		
 		if(findSelectedObject('pokemons').selected) {
@@ -68,13 +131,16 @@ function Modal() {
 	return (
 		<div className="modal">
 			<div className="panel">
-				{menuItems.map((obj, index) => (
+				{globalState.map((obj, index) => (
 					<Box
 						key={index}
 						depthLevel={depthLevel}
 						obj={obj}
 						globalState={globalState}
 						setGlobalState={setGlobalState}
+						updateSelected={updateSelected}
+						findSelectedValue={findSelectedValue}
+						findSelectedObj={findSelectedObj}
 					/>
 				))}
 			</div>

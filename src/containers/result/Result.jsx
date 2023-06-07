@@ -24,9 +24,9 @@ function Result({globalState, setGlobalState}) {
 	if(filter === 'pokemons') {
 		querySelected = POKEMON_QUERY;
 		
-		const generation = urlParams.get("generation");
-		const pokemonColor = urlParams.get("pokemonColor");
-		const pokemonHabitatNames = urlParams.getAll("pokemonHabitatNames");
+		const generation = urlParams.get("generation") || "";
+		const pokemonColor = urlParams.get("pokemonColor") || "";
+		const pokemonHabitatNames = urlParams.getAll("pokemonHabitatNames") || [];
 
 		variables = {
 			generation,

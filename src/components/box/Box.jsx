@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./box.css";
 import arrow from "./../../assets/right-arrow.svg";
 
@@ -28,148 +28,105 @@ import arrow from "./../../assets/right-arrow.svg";
  *      - .right-arrow <hide>
  */
 
-function Box({ depthLevel, obj = {}, globalState, setGlobalState }) {
+function Box({ 
+	depthLevel, 
+	obj = {},
+	globalState, 
+	setGlobalState,
+	updateSelected,
+	findSelectedValue,
+	findSelectedObj,
+}) {
 	depthLevel += 1;
 	const dropdownClass = depthLevel > 1 ? "dropdown-submenu" : "";
-
-	let text = obj.title,
-		value = obj.value,
-		subMenu = obj.subMenu || [],
-		cnt = obj.cnt;
-
-	let isFilter = subMenu.length > 0,
-		isOption = subMenu.length === 0,
-		selected = obj.selected || false,
-		selectType = obj.selectType || "";
-
-	let [isActive, setIsActive] = useState(false);
 
 	const handleClick = (e) => {
 		console.log(e.currentTarget);
 		// console.log(e.currentTarget.getAttribute("value"));
-		setIsActive((prevState) => !prevState);
+		// setIsActive(prevState => !prevState);
 
+		setBoxState(prevState => ({...prevState, isActive: !(prevState.isActive),}), console.log(boxState));
 		let finalValue = e.currentTarget.getAttribute("value");
-
+		
 		console.log("sending final value: ", finalValue);
-		console.log("sending depth level: ", depthLevel);
-		traverse(globalState, 1, finalValue, depthLevel);
-
+		updateSelected(globalState, finalValue);
 		setGlobalState(globalState, console.log(globalState));
+
+		let newObj = findSelectedObj(globalState, finalValue);
+		reInitialize(newObj);
 	};
 
-	/**
-	 * Function to update global state onClick;
-	 * currMenu
-	 * currDepth
-	 * finalValue
-	 * depthLevel
-	 */
-	const traverse = (currMenu, currDepth, finalValue, depthLevel) => {
-		// if lower level depth selected is false, don't dig deeper;
-		if (currDepth < depthLevel) {
-			if (currMenu.selected === false) {
-				return;
-			}
-		}
+	// let [isActive, setIsActive] = useState(findSelectedValue(obj.value));
+	// let [isActive, setIsActive] = useState(false);
 
-		console.log(currDepth, depthLevel);
-		if (currDepth === depthLevel) {
-			console.log("inside equal");
-			console.log(currMenu);
-			// set selected true for finalValue;
-			let temp = currMenu.filter((obj) => obj.value === finalValue);
-			if (temp.length > 0) temp[0].selected = true;
-
-			// set false for remaining objects in the same depth;
-			currMenu.map((obj) => {
-				if (obj.value !== finalValue) {
-					obj.selected = false;
-				}
-			});
-
-			console.log("reached: ", depthLevel);
-
-			// once it has reached the depth level, don't dig deeper;
-			return;
-		}
-
-		// if there is submenu, traverse another level;
-		console.log("going for recursion");
-		currMenu.map((obj) =>
-			traverse(obj.subMenu, currDepth + 1, finalValue, depthLevel)
-		);
-	};
-
-	const findObjectforValue = (
-		currMenu,
-		currDepth,
-		finalValue,
-		depthLevel
-	) => {
-		// find the object of selected current value and return it;
-		if (currDepth === depthLevel) {
-			let temp = currMenu.filter((obj) => obj.value === finalValue);
-
-			if (temp.length > 0) return temp[0];
-		}
-
-		// if there is submenu, traverse another level;
-		// currMenu.map((obj) => findObjectforValue(obj.subMenu, currDepth + 1, finalValue, depthLevel));
-
-		for (let obj of currMenu) {
-			return findObjectforValue(
-				obj.subMenu,
-				currDepth + 1,
-				finalValue,
-				depthLevel
-			);
-		}
-
-		return null;
-	};
-
+	let [boxState, setBoxState] = useState({
+		text: obj.title,
+		value: obj.value,
+		subMenu: obj.subMenu || [],
+		cnt: obj.cnt,
+		isFilter: obj.subMenu?.length > 0,
+		isOption: obj.subMenu?.length === 0,
+		isActive: obj.selected || false,
+		selectType: obj.selectType || "",
+	});
+	
+	const reInitialize = (newObj) => {
+		setBoxState({
+			text: newObj.title,
+			value: newObj.value,
+			subMenu: newObj.subMenu || [],
+			cnt: newObj.cnt,
+			isFilter: newObj.subMenu?.length > 0,
+			isOption: newObj.subMenu?.length === 0,
+			isActive: newObj.selected || false,
+			selectType: newObj.selectType || "",
+		}, console.log("reinit: ", boxState));
+	}
+		
 	return (
 		<React.Fragment>
 			<div
-				className={`box ${isFilter ? "filter" : "option"} box-${
-					isActive ? "active" : ""
+				className={`box ${boxState.isFilter ? "filter" : "option"} box-${
+					boxState.isActive ? "active" : ""
 				}`}
 				onClick={handleClick}
-				value={value}
+				value={boxState.value}
 			>
 				<div className="first">
 					{/* Checkbox || Radio */}
-					{isOption && (
+					{boxState.isOption && (
 						<span
-							className={`select ${selectType} ${
-								isActive ? "selected" : ""
+							className={`select ${boxState.selectType} ${
+								boxState.isActive ? "selected" : ""
 							}`}
 						></span>
 					)}
 
 					{/* Text */}
-					<span className="text">{text}</span>
+					<span className="text">{boxState.text}</span>
 				</div>
 
 				<div className="second">
 					{/* Filter Count */}
-					{cnt > 0 && <span className="cnt">{cnt}</span>}
+					{boxState.cnt > 0 && <span className="cnt">{boxState.cnt}</span>}
 
 					{/* Right Arrow */}
-					{isFilter && <img src={arrow} alt="right-arrow" />}
+					{boxState.isFilter && <img src={arrow} alt="right-arrow" />}
 				</div>
 			</div>
 
-			{subMenu.length > 0 && isActive && (
+			{boxState.subMenu.length > 0 && boxState.isActive && (
 				<div className={`submenu ${dropdownClass}`}>
-					{subMenu.map((obj, index) => (
+					{boxState.subMenu.map((obj, index) => (
 						<Box
 							key={index}
 							depthLevel={depthLevel}
 							obj={obj}
 							globalState={globalState}
 							setGlobalState={setGlobalState}
+							updateSelected={updateSelected}
+							findSelectedValue={findSelectedValue}
+							findSelectedObj={findSelectedObj}
 						/>
 					))}
 				</div>
