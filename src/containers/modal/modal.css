@@ -10,6 +10,25 @@
 	align-items: flex-start;
 	justify-content: space-between;
 	flex-direction: column;
+
+	opacity: 1;
+	transition: all 0.5s ease-in-out;
+	animation: fade 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes fade {
+	0% {
+		opacity: 0.5;
+		transform: scale(0.3);
+		filter: blur(14px);
+	}
+	50% {
+		filter: none;
+	}	
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
 }
 
 .panel {

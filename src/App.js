@@ -8,7 +8,7 @@ import { KEY_CODE } from "./utils/keys";
 function App() {
 	let globalString = "";
 	const homeRef = useRef(null);
-	const [openModal, setOpenModal] = useState(true);
+	const [openModal, setOpenModal] = useState(false);
 
 	const resetGlobalString = () => {
 		globalString = "";
@@ -24,7 +24,7 @@ function App() {
 		globalString += keyCode;
 
 		// detect CTRL + K;
-		if (globalString.slice(-4) === KEY_CODE.CTRL_K) {
+		if (globalString.slice(-4) === KEY_CODE.CTRL_K || (event.ctrlKey && event.keyCode === 75)) {
 			// to override CTRL + K of the browser;
 			event.preventDefault();
 
@@ -60,7 +60,6 @@ function App() {
 
 	const handleOutsideClick = (e) => {
 		e.preventDefault();
-		// change state here;
 		setOpenModal(false);
 	};
 
@@ -80,7 +79,7 @@ function App() {
 			<BrowserRouter>
 				<Routes>
 					{/* <Route exact path="/" element={<Modal />} /> */}
-					<Route exact path="/" element={openModal ? <Modal /> : "Press CTRL K to get started."} />
+					<Route exact path="/" element={openModal ? <Modal /> : "Press CTRL K to get started. Esc to end."} />
 					<Route path="/submit" element={<Result />} />
 				</Routes>
 			</BrowserRouter>
